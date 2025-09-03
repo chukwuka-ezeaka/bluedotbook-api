@@ -1,0 +1,10 @@
+{
+  "version": 3,
+  "file": "db.config ",
+  "sourceRoot": "",
+  "sources": [
+    "../../../../app/shared/config/db.config.ts"
+  ],
+  "names": [],
+  "mappings": "AAAA,OAAO,KAAK,MAAM,MAAM,QAAQ,CAAC;AAEjC,MAAM,CAAC,MAAM,EAAE,CAAC;AAMhB,MAAM,QAAQ,GAAmB;IAC/B,GAAG,EAAE,OAAO,CAAC,GAAG,CAAC,SAAS;CAC3B,CAAC;AAEF,eAAe,QAAQ,CAAC"
+}

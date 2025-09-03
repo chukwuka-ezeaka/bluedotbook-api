@@ -1,0 +1,10 @@
+{
+  "version": 3,
+  "file": "user.routes ",
+  "sourceRoot": "",
+  "sources": [
+    "../../../app/routes/user.routes.ts"
+  ],
+  "names": [],
+  "mappings": "AAAA,OAAO,OAAmB,MAAM,SAAS,CAAC;AAC1C,OAAO,KAAK,IAAI,MAAM,mCAAmC,CAAC;AAE1D,MAAM,UAAU,GAAW,OAAO,CAAC,MAAM,EAAE,CAAC;AAE5C,UAAU;KACP,GAAG,CAAC,GAAG,EAAE,IAAI,CAAC,kBAAkB,CAAC;KACjC,GAAG,CAAC,MAAM,EAAE,IAAI,CAAC,iBAAiB,CAAC;KACnC,GAAG,CAAC,MAAM,EAAE,IAAI,CAAC,oBAAoB,CAAC,CAAC;AAE1C,eAAe,UAAU,CAAC"
+}

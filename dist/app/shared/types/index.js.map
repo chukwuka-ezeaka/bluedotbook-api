@@ -1,0 +1,10 @@
+{
+  "version": 3,
+  "file": "index ",
+  "sourceRoot": "",
+  "sources": [
+    "../../../../app/shared/types/index.ts"
+  ],
+  "names": [],
+  "mappings": ""
+}
