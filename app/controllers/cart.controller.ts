@@ -1,6 +1,8 @@
 import { Request, Response, NextFunction } from "express";
 import {
   addToCart,
+  calculateCheckout,
+  checkout,
   getCart,
   getSingleCartItem,
   removeItem,
@@ -8,9 +10,9 @@ import {
 } from "../services/cart.service.js";
 import {
   addToCartValidator,
+  checkoutValidator,
   updateCartValidator,
 } from "../shared/validators/cart.validator.js";
-
 import asyncHandler from "../shared/middleware/async.js";
 import ErrorResponse from "../shared/utils/errorResponse.js";
 
@@ -33,6 +35,30 @@ export const updateCartItemController = asyncHandler(
       return next(new ErrorResponse(error.message, 400));
     } else {
       const cart = await updateCartItem(req, res, next);
+      return res.status(200).send(cart);
+    }
+  }
+);
+
+export const calculateChekoutController = asyncHandler(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const { error } = await checkoutValidator.validateAsync(req.body);
+    if (error) {
+      return next(new ErrorResponse(error.message, 400));
+    } else {
+      const cart = await calculateCheckout(req, res, next);
+      return res.status(200).send(cart);
+    }
+  }
+);
+
+export const chekoutController = asyncHandler(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const { error } = await checkoutValidator.validateAsync(req.body);
+    if (error) {
+      return next(new ErrorResponse(error.message, 400));
+    } else {
+      const cart = await checkout(req, res, next);
       return res.status(200).send(cart);
     }
   }

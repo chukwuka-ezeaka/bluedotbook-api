@@ -49,7 +49,7 @@ export interface ICart extends Document {
   product: string | IProduct;
   quantity: number;
   status: string;
-  total: number;
+  price: number;
   createdAt: Date;
   updatedAt: Date;
   toJSON(): any;

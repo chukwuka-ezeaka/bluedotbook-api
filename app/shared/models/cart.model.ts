@@ -19,7 +19,7 @@ const cartSchema = new Schema<ICart>(
       enum: ["pending", "processed", "completed"],
       default: "pending",
     },
-    total: {
+    price: {
       type: Number,
     },
   },

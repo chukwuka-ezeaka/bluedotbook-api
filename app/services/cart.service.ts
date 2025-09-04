@@ -6,7 +6,8 @@ import { userAppearance } from "../shared/utils/constants.js";
 import { CartModel } from "../shared/models/cart.model.js";
 import { ProductModel } from "../shared/models/product.model.js";
 import { Request, Response, NextFunction } from "express";
-import { IUser } from "@/shared/types";
+import _ from "lodash";
+import { OrderModel } from "../shared/models/order.model.js";
 
 dotenv.config();
 
@@ -176,6 +177,67 @@ export const removeItem = asyncHandler(
     return {
       success: true,
       message: "item removed fromm cart",
+    };
+  }
+);
+
+export const calculateCheckout = asyncHandler(
+  async (req: any, res: Response, next: NextFunction) => {
+    let cartTotal = 0;
+    const cart = await CartModel.find({
+      _id: { $in: req.body.ids },
+      user: req.user._id,
+    }).populate([
+      {
+        path: "product",
+        populate: {
+          path: "category",
+          select: "id name",
+        },
+      },
+    ]);
+
+    const cartArray: any = cart;
+
+    for (const item of cartArray) {
+      item.price = _.multiply(item.product.price, item.quantity);
+      cartTotal += item.price;
+    }
+    return {
+      success: true,
+      message: "Total checkout",
+      data: {
+        total: cartTotal,
+        items: cartArray,
+      },
+    };
+  }
+);
+
+export const checkout = asyncHandler(
+  async (req: any, res: Response, next: NextFunction) => {
+    const { data } = await calculateCheckout(req, res, next);
+    console.log("🚀 ~ data:", data);
+
+    for (const item of data.items) {
+      await ProductModel.updateOne(
+        { _id: item.product._id },
+        { $inc: { quantity: -item.quantity } }
+      );
+      item.status = "processed";
+      await item.save();
+    }
+
+    const order = await OrderModel.create({
+      user: req.user._id,
+      items: req.body.ids,
+      total: data.total,
+    });
+    console.log("🚀 ~ order:", order);
+    return {
+      success: true,
+      message: "Checkout Successful",
+      data: order,
     };
   }
 );

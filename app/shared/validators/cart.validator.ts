@@ -10,3 +10,7 @@ export const updateCartValidator = Joi.object({
   quantity: Joi.number().required(),
   type: Joi.string().valid("increase", "decrease").required(),
 });
+
+export const checkoutValidator = Joi.object({
+  ids: Joi.array().items(Joi.string()).required(),
+});

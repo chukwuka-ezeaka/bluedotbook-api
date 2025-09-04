@@ -11,7 +11,7 @@ dotenv.config();
 export const createProduct = asyncHandler(
   async (req: any, res: Response, next: NextFunction) => {
     const user: any = req.user;
-    console.log("🚀 ~ BlogService ~ create ~ productDto:", req.body);
+    console.log("🚀 ~ ProductService ~ create ~ productDto:", req.body);
     const newProduct = new ProductModel(req.body);
     newProduct.user = user._id;
     await newProduct.save();

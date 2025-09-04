@@ -12,6 +12,7 @@ export const createProductValidator = Joi.object({
   tags: Joi.array().items(Joi.string()).optional(),
   price: Joi.number().required(),
   quantity: Joi.number().required(),
+  currency: Joi.string().required(),
 });
 
 export const updateProductValidator = Joi.object({
@@ -23,4 +24,5 @@ export const updateProductValidator = Joi.object({
   tags: Joi.array().items(Joi.string()).optional(),
   price: Joi.number().required().optional(),
   quantity: Joi.number().required().optional(),
+  currency: Joi.string().optional(),
 });
