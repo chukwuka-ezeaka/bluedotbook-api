@@ -1,6 +1,6 @@
-import { UserModel } from "../models/user.model";
-import ErrorResponse from "../utils/errorResponse";
-import asyncHandler from "./async";
+import { UserModel } from "../models/user.model.js";
+import ErrorResponse from "../utils/errorResponse.js";
+import asyncHandler from "./async.js";
 const checkDuplicateEmail = asyncHandler(async (req, res, next) => {
     const user = await UserModel.findOne({
         $or: [{ email: req.body.email }, { email: req.body.email.toLowerCase() }],

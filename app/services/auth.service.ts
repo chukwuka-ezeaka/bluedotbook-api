@@ -1,9 +1,9 @@
 import moment from "moment";
 import dotenv from "dotenv";
 import { Request, Response, NextFunction } from "express";
-import asyncHandler from "../shared/middleware/async";
-import ErrorResponse from "../shared/utils/errorResponse";
-import { UserModel } from "../shared/models/user.model";
+import asyncHandler from "../shared/middleware/async.js";
+import ErrorResponse from "../shared/utils/errorResponse.js";
+import { UserModel } from "../shared/models/user.model.js";
 import * as bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 

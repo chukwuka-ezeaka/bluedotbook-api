@@ -1,12 +1,12 @@
 import dotenv from "dotenv";
 import express from "express";
 import cors from "cors";
-import routes from "./app/routes/index.routes";
+import routes from "./app/routes/index.routes.js";
 import mongoose from "mongoose";
 import passport from "passport";
-import configurePassport from "./app/shared/config/passport.config";
-import errorHandler from "./app/shared/middleware/error";
-import db from "./app/shared/config/db.config";
+import configurePassport from "./app/shared/config/passport.config.js";
+import errorHandler from "./app/shared/middleware/error.js";
+import db from "./app/shared/config/db.config.js";
 dotenv.config();
 const app = express();
 app.use(express.json());

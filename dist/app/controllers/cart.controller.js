@@ -1,7 +1,7 @@
-import { addToCart, getCart, getSingleCartItem, removeItem, updateCartItem, } from "../services/cart.service";
-import { addToCartValidator, updateCartValidator, } from "../shared/validators/cart.validator";
-import asyncHandler from "../shared/middleware/async";
-import ErrorResponse from "../shared/utils/errorResponse";
+import { addToCart, getCart, getSingleCartItem, removeItem, updateCartItem, } from "../services/cart.service.js";
+import { addToCartValidator, updateCartValidator, } from "../shared/validators/cart.validator.js";
+import asyncHandler from "../shared/middleware/async.js";
+import ErrorResponse from "../shared/utils/errorResponse.js";
 export const addToCartController = asyncHandler(async (req, res, next) => {
     const { error } = await addToCartValidator.validateAsync(req.body);
     if (error) {

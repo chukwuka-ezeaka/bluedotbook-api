@@ -1,7 +1,7 @@
-import { createProduct, updateProduct, getProducts, getProduct, deleteProduct, createCategory, getCategories, getSingleCategory, editCategory, deleteCategory, getUserProduct, } from "../services/product.service";
-import { createProductValidator, updateProductValidator, createCategoryValidator, } from "../shared/validators/product.validators";
-import asyncHandler from "../shared/middleware/async";
-import ErrorResponse from "../shared/utils/errorResponse";
+import { createProduct, updateProduct, getProducts, getProduct, deleteProduct, createCategory, getCategories, getSingleCategory, editCategory, deleteCategory, getUserProduct, } from "../services/product.service.js";
+import { createProductValidator, updateProductValidator, createCategoryValidator, } from "../shared/validators/product.validators.js";
+import asyncHandler from "../shared/middleware/async.js";
+import ErrorResponse from "../shared/utils/errorResponse.js";
 export const createProductController = asyncHandler(async (req, res, next) => {
     const { error } = await createProductValidator.validateAsync(req.body);
     if (error) {

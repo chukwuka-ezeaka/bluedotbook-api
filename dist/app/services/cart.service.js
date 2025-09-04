@@ -1,9 +1,9 @@
 import dotenv from "dotenv";
-import asyncHandler from "../shared/middleware/async";
-import ErrorResponse from "../shared/utils/errorResponse";
-import { pageCount, paginate, search } from "../shared/utils/index";
-import { CartModel } from "../shared/models/cart.model";
-import { ProductModel } from "../shared/models/product.model";
+import asyncHandler from "../shared/middleware/async.js";
+import ErrorResponse from "../shared/utils/errorResponse.js";
+import { pageCount, paginate, search } from "../shared/utils/index.js";
+import { CartModel } from "../shared/models/cart.model.js";
+import { ProductModel } from "../shared/models/product.model.js";
 dotenv.config();
 export const addToCart = asyncHandler(async (req, res, next) => {
     const { body } = req;

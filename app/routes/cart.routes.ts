@@ -1,6 +1,5 @@
 import express from "express";
-import * as cart from "../controllers/cart.controller";
-import { isAuthenticated } from "../shared/middleware/auth.jwt";
+import * as cart from "../controllers/cart.controller.js";
 const cartRouter = express.Router();
 
 cartRouter

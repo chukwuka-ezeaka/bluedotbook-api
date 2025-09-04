@@ -1,7 +1,7 @@
 import passport from "passport";
 import { Request, Response, NextFunction } from "express";
-import asyncHandler from "./async";
-import ErrorResponse from "../utils/errorResponse";
+import asyncHandler from "./async.js";
+import ErrorResponse from "../utils/errorResponse.js";
 
 export const isAuthenticated = asyncHandler(
   async (req: Request, res: Response, next: NextFunction) => {

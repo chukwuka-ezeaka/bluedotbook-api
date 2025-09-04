@@ -1,9 +1,9 @@
 import { Application } from "express";
-import { isAuthenticated } from "../shared/middleware/auth.jwt";
-import authRouter from "./auth.routes";
-import productRouter from "./product.routes";
-import cartRouter from "./cart.routes";
-import userRouter from "./user.routes";
+import { isAuthenticated } from "../shared/middleware/auth.jwt.js";
+import authRouter from "./auth.routes.js";
+import productRouter from "./product.routes.js";
+import cartRouter from "./cart.routes.js";
+import userRouter from "./user.routes.js";
 
 export default function (app: Application): void {
   app.use("/api/v1/auth", authRouter);

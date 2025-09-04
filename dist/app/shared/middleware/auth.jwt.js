@@ -1,6 +1,6 @@
 import passport from "passport";
-import asyncHandler from "./async";
-import ErrorResponse from "../utils/errorResponse";
+import asyncHandler from "./async.js";
+import ErrorResponse from "../utils/errorResponse.js";
 export const isAuthenticated = asyncHandler(async (req, res, next) => {
     passport.authenticate("jwt", { session: false }, (err, user, info) => {
         if (err || !user) {

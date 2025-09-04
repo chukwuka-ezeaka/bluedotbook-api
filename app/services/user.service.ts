@@ -1,11 +1,11 @@
 import axios from "axios";
 import dotenv from "dotenv";
 import { Request, Response, NextFunction } from "express";
-import asyncHandler from "../shared/middleware/async";
-import ErrorResponse from "../shared/utils/errorResponse";
+import asyncHandler from "../shared/middleware/async.js";
+import ErrorResponse from "../shared/utils/errorResponse.js";
 import * as bcrypt from "bcryptjs";
-import { paginate, pageCount, search } from "../shared/utils/index";
-import { UserModel } from "../shared/models/user.model";
+import { paginate, pageCount, search } from "../shared/utils/index.js";
+import { UserModel } from "../shared/models/user.model.js";
 
 dotenv.config();
 

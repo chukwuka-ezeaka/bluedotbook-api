@@ -11,14 +11,14 @@ import {
   editCategory,
   deleteCategory,
   getUserProduct,
-} from "../services/product.service";
+} from "../services/product.service.js";
 import {
   createProductValidator,
   updateProductValidator,
   createCategoryValidator,
-} from "../shared/validators/product.validators";
-import asyncHandler from "../shared/middleware/async";
-import ErrorResponse from "../shared/utils/errorResponse";
+} from "../shared/validators/product.validators.js";
+import asyncHandler from "../shared/middleware/async.js";
+import ErrorResponse from "../shared/utils/errorResponse.js";
 
 export const createProductController = asyncHandler(
   async (req: Request, res: Response, next: NextFunction) => {

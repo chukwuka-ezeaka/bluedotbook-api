@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { ICart } from "../types/index";
+import { ICart } from "../types/index.js";
 export declare const CartModel: mongoose.Model<ICart, {}, {}, {}, mongoose.Document<unknown, {}, ICart> & ICart & Required<{
     _id: string;
 }>, any>;

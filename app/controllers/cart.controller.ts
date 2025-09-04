@@ -5,13 +5,14 @@ import {
   getSingleCartItem,
   removeItem,
   updateCartItem,
-} from "../services/cart.service";
+} from "../services/cart.service.js";
 import {
   addToCartValidator,
   updateCartValidator,
-} from "../shared/validators/cart.validator";
-import asyncHandler from "../shared/middleware/async";
-import ErrorResponse from "../shared/utils/errorResponse";
+} from "../shared/validators/cart.validator.js";
+
+import asyncHandler from "../shared/middleware/async.js";
+import ErrorResponse from "../shared/utils/errorResponse.js";
 
 export const addToCartController = asyncHandler(
   async (req: Request, res: Response, next: NextFunction) => {

@@ -1,8 +1,8 @@
 import dotenv from "dotenv";
-import asyncHandler from "../shared/middleware/async";
-import ErrorResponse from "../shared/utils/errorResponse";
-import { paginate, pageCount, search } from "../shared/utils/index";
-import { UserModel } from "../shared/models/user.model";
+import asyncHandler from "../shared/middleware/async.js";
+import ErrorResponse from "../shared/utils/errorResponse.js";
+import { paginate, pageCount, search } from "../shared/utils/index.js";
+import { UserModel } from "../shared/models/user.model.js";
 dotenv.config();
 export const getUsers = asyncHandler(async (req, res, next) => {
     const { page = 1, pageSize = 500, ...query } = req.query;

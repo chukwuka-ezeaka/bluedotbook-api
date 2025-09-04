@@ -1,11 +1,11 @@
 import { Request, Response, NextFunction } from "express";
-import { login, register } from "../services/auth.service";
-import ErrorResponse from "../shared/utils/errorResponse";
+import { login, register } from "../services/auth.service.js";
+import ErrorResponse from "../shared/utils/errorResponse.js";
 import {
   loginValidator,
   registerValidator,
-} from "../shared/validators/auth.validators";
-import asyncHandler from "../shared/middleware/async";
+} from "../shared/validators/auth.validators.js";
+import asyncHandler from "../shared/middleware/async.js";
 
 export const registerController = asyncHandler(
   async (req: Request, res: Response, next: NextFunction) => {

@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { IOrder } from "../types/index";
+import { IOrder } from "../types/index.js";
 export declare const OrderModel: mongoose.Model<IOrder, {}, {}, {}, mongoose.Document<unknown, {}, IOrder> & IOrder & Required<{
     _id: string;
 }>, any>;

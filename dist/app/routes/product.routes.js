@@ -1,6 +1,6 @@
 import express from "express";
-import * as product from "../controllers/product.controller";
-import { isAuthenticated } from "../shared/middleware/auth.jwt";
+import * as product from "../controllers/product.controller.js";
+import { isAuthenticated } from "../shared/middleware/auth.jwt.js";
 const productRouter = express.Router();
 productRouter
     .post("/", [isAuthenticated], product.createProductController)

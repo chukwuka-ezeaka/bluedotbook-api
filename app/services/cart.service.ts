@@ -1,10 +1,10 @@
 import dotenv from "dotenv";
-import asyncHandler from "../shared/middleware/async";
-import ErrorResponse from "../shared/utils/errorResponse";
-import { pageCount, paginate, search } from "../shared/utils/index";
-import { userAppearance } from "../shared/utils/constants";
-import { CartModel } from "../shared/models/cart.model";
-import { ProductModel } from "../shared/models/product.model";
+import asyncHandler from "../shared/middleware/async.js";
+import ErrorResponse from "../shared/utils/errorResponse.js";
+import { pageCount, paginate, search } from "../shared/utils/index.js";
+import { userAppearance } from "../shared/utils/constants.js";
+import { CartModel } from "../shared/models/cart.model.js";
+import { ProductModel } from "../shared/models/product.model.js";
 import { Request, Response, NextFunction } from "express";
 import { IUser } from "@/shared/types";
 

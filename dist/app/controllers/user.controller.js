@@ -1,7 +1,7 @@
-import { getUser, getUsers, updateUser } from "../services/user.service";
-import asyncHandler from "../shared/middleware/async";
-import ErrorResponse from "../shared/utils/errorResponse";
-import { updateUserValidator } from "../shared/validators/user.validators";
+import { getUser, getUsers, updateUser } from "../services/user.service.js";
+import asyncHandler from "../shared/middleware/async.js";
+import ErrorResponse from "../shared/utils/errorResponse.js";
+import { updateUserValidator } from "../shared/validators/user.validators.js";
 export const getUsersController = asyncHandler(async (req, res, next) => {
     const users = await getUsers(req, res, next);
     return res.status(200).send(users);

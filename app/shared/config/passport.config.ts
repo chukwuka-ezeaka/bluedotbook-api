@@ -1,7 +1,7 @@
 import { ExtractJwt, Strategy } from "passport-jwt";
 import { Request } from "express";
-import { UserModel } from "../models/user.model";
-import { IUser } from "../types/index";
+import { UserModel } from "../models/user.model.js";
+import { IUser } from "../types/index.js";
 
 export default function (passport: any): void {
   passport.use(

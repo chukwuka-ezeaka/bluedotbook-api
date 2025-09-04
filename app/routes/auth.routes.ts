@@ -1,6 +1,6 @@
 import express, { Router } from "express";
-import * as auth from "../controllers/auth.controller";
-import verify from "../shared/middleware/verify";
+import * as auth from "../controllers/auth.controller.js";
+import verify from "../shared/middleware/verify.js";
 
 const authRouter: Router = express.Router();
 
