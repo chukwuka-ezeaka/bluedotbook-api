@@ -1,10 +1,1 @@
-{
-  "version": 3,
-  "file": "user.validators ",
-  "sourceRoot": "",
-  "sources": [
-    "../../../../app/shared/validators/user.validators.ts"
-  ],
-  "names": [],
-  "mappings": "AAAA,OAAO,GAAG,MAAM,KAAK,CAAC;AAEtB,MAAM,CAAC,MAAM,mBAAmB,GAAG,GAAG,CAAC,MAAM,CAAC;IAC5C,QAAQ,EAAE,GAAG,CAAC,MAAM,EAAE,CAAC,GAAG,CAAC,CAAC,CAAC,CAAC,QAAQ,EAAE;IACxC,KAAK,EAAE,GAAG,CAAC,MAAM,EAAE,CAAC,KAAK,EAAE,CAAC,QAAQ,EAAE;IACtC,QAAQ,EAAE,GAAG,CAAC,MAAM,EAAE,CAAC,GAAG,CAAC,CAAC,CAAC,CAAC,QAAQ,EAAE;CACzC,CAAC,CAAC"
-}
+{"version":3,"file":"user.validators.js","sourceRoot":"","sources":["../../../../app/shared/validators/user.validators.ts"],"names":[],"mappings":"AAAA,OAAO,GAAG,MAAM,KAAK,CAAC;AAEtB,MAAM,CAAC,MAAM,mBAAmB,GAAG,GAAG,CAAC,MAAM,CAAC;IAC5C,QAAQ,EAAE,GAAG,CAAC,MAAM,EAAE,CAAC,GAAG,CAAC,CAAC,CAAC,CAAC,QAAQ,EAAE;CACzC,CAAC,CAAC"}

@@ -1,10 +1,1 @@
-{
-  "version": 3,
-  "file": "errorResponse ",
-  "sourceRoot": "",
-  "sources": [
-    "../../../../app/shared/utils/errorResponse.ts"
-  ],
-  "names": [],
-  "mappings": "AAAA,MAAM,aAAc,SAAQ,KAAK;IAG/B,YAAY,OAAe,EAAE,UAAkB;QAC7C,KAAK,CAAC,OAAO,CAAC,CAAC;QACf,IAAI,CAAC,UAAU,GAAG,UAAU,CAAC;QAE7B,KAAK,CAAC,iBAAiB,CAAC,IAAI,EAAE,IAAI,CAAC,WAAW,CAAC,CAAC;IAClD,CAAC;CACF;AAED,eAAe,aAAa,CAAC"
-}
+{"version":3,"file":"errorResponse.js","sourceRoot":"","sources":["../../../../app/shared/utils/errorResponse.ts"],"names":[],"mappings":"AAAA,MAAM,aAAc,SAAQ,KAAK;IAG/B,YAAY,OAAe,EAAE,UAAkB;QAC7C,KAAK,CAAC,OAAO,CAAC,CAAC;QACf,IAAI,CAAC,UAAU,GAAG,UAAU,CAAC;QAE7B,KAAK,CAAC,iBAAiB,CAAC,IAAI,EAAE,IAAI,CAAC,WAAW,CAAC,CAAC;IAClD,CAAC;CACF;AAED,eAAe,aAAa,CAAC"}

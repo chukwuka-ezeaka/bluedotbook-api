@@ -9,31 +9,31 @@ import errorHandler from "./app/shared/middleware/error";
 import db from "./app/shared/config/db.config";
 dotenv.config();
 const app = express();
-app.use(express.send());
+app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 app.use(passport.initialize());
 configurePassport(passport);
 mongoose
-  .connect(db.url || "mongodb://localhost:27017/bluedotbook")
-  .then(() => {
+    .connect(db.url || "mongodb://localhost:27017/bluedotbook")
+    .then(() => {
     console.log("Connected to the database!");
-  })
-  .catch((err) => {
+})
+    .catch((err) => {
     console.log("Cannot connect to the database!", err);
     process.exit();
-  });
+});
 app.get("/", (req, res) => {
-  res.send({ message: "Bluedotbook.com Test." });
+    res.send({ message: "Bluedotbook.com Test." });
 });
 routes(app);
 app.use(errorHandler);
 const PORT = parseInt(process.env.PORT || "9000", 10);
 app.listen(PORT, async () => {
-  console.log(`Server is running.send port ${PORT}.`);
+    console.log(`Server is running.send port ${PORT}.`);
 });
 process.on("unhandledRejection", (err, promise) => {
-  console.log(`Error: ${err.message}`);
-  process.exit(0);
+    console.log(`Error: ${err.message}`);
+    process.exit(0);
 });
-//# sourceMappingURL=server .map
+//# sourceMappingURL=server.js.map

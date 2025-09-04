@@ -1,9 +1,9 @@
 import { Request, Response, NextFunction } from "express";
 export declare const createProduct: (req: Request, res: Response, next: NextFunction) => Promise<any>;
 export declare const getUserProduct: (req: Request, res: Response, next: NextFunction) => Promise<any>;
+export declare const updateProduct: (req: Request, res: Response, next: NextFunction) => Promise<any>;
 export declare const getProducts: (req: Request, res: Response, next: NextFunction) => Promise<any>;
 export declare const getProduct: (req: Request, res: Response, next: NextFunction) => Promise<any>;
-export declare const updateProduct: (req: Request, res: Response, next: NextFunction) => Promise<any>;
 export declare const deleteProduct: (req: Request, res: Response, next: NextFunction) => Promise<any>;
 export declare const createCategory: (req: Request, res: Response, next: NextFunction) => Promise<any>;
 export declare const getCategories: (req: Request, res: Response, next: NextFunction) => Promise<any>;

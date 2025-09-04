@@ -2,8 +2,8 @@ import express from "express";
 import * as user from "../controllers/user.controller";
 const userRouter = express.Router();
 userRouter
-  .get("/", user.getUsersController)
-  .get("/:id", user.getUserController)
-  .put("/:id", user.updateUserController);
+    .put("/", user.updateUserController)
+    .get("/:id", user.getUserController)
+    .get("/", user.getUsersController);
 export default userRouter;
-//# sourceMappingURL=user.routes .map
+//# sourceMappingURL=user.routes.js.map

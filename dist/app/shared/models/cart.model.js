@@ -1,42 +1,35 @@
 import mongoose, { Schema } from "mongoose";
-const cartSchema = new Schema(
-  {
+const cartSchema = new Schema({
     user: {
-      type: Schema.Types.ObjectId,
-      ref: "user",
-      required: true,
+        type: Schema.Types.ObjectId,
+        ref: "user",
     },
-    items: [
-      {
-        product: {
-          type: Schema.Types.ObjectId,
-          ref: "product",
-          required: true,
-        },
-        quantity: {
-          type: Number,
-          required: true,
-          min: 1,
-        },
-      },
-    ],
+    product: {
+        type: Schema.Types.ObjectId,
+        ref: "product",
+    },
+    quantity: {
+        type: Number,
+    },
+    status: {
+        type: String,
+        enum: ["pending", "processed", "completed"],
+        default: "pending",
+    },
     total: {
-      type: Number,
-      default: 0,
+        type: Number,
     },
-  },
-  {
+}, {
     timestamps: true,
     toJSON: { virtuals: true },
     toObject: { virtuals: true },
-  }
-);
+});
 cartSchema.method("toJSON", function () {
-  const { __v, ...object } = this.toObject();
-  const newObject = {
-    ...object,
-  };
-  return newObject;
+    const { __v, ...object } = this.toObject();
+    const newObject = {
+        ...object,
+    };
+    return newObject;
 });
 export const CartModel = mongoose.model("cart", cartSchema);
-//# sourceMappingURL=cart.model .map
+//# sourceMappingURL=cart.model.js.map

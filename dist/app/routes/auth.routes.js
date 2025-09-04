@@ -3,11 +3,7 @@ import * as auth from "../controllers/auth.controller";
 import verify from "../shared/middleware/verify";
 const authRouter = express.Router();
 authRouter
-  .post(
-    "/register",
-    [verify.checkDuplicateEmail, verify.checkDuplicateUsername],
-    auth.registerController
-  )
-  .post("/login", auth.loginController);
+    .post("/register", [verify.checkDuplicateEmail, verify.checkDuplicateUsername], auth.registerController)
+    .post("/login", auth.loginController);
 export default authRouter;
-//# sourceMappingURL=auth.routes .map
+//# sourceMappingURL=auth.routes.js.map

@@ -1,144 +1,136 @@
-import { CartModel } from "../shared/models/cart.model";
-import { ProductModel } from "../shared/models/product.model";
+import dotenv from "dotenv";
 import asyncHandler from "../shared/middleware/async";
 import ErrorResponse from "../shared/utils/errorResponse";
-export const addToCart = asyncHandler(
-  async (req: Request, res: Response, next: NextFunction) => {
-    const { productId, quantity } = req.body;
-    const userId = req.user?._id;
-    if (!userId) {
-      return next(new ErrorResponse("User not authenticated", 401));
-    }
-    const product = await ProductModel.findById(productId);
+import { pageCount, paginate, search } from "../shared/utils/index";
+import { CartModel } from "../shared/models/cart.model";
+import { ProductModel } from "../shared/models/product.model";
+dotenv.config();
+export const addToCart = asyncHandler(async (req, res, next) => {
+    const { body } = req;
+    const user = req.user;
+    const product = await ProductModel.findOne({ _id: body.productId });
     if (!product) {
-      return next(new ErrorResponse("Product not found", 404));
+        return next(new ErrorResponse("Product not found", 404));
     }
-    let cart = await CartModel.findOne({ user: userId });
-    if (!cart) {
-      cart = new CartModel({
-        user: userId,
-        items: [],
-        total: 0,
-      });
+    let item = await CartModel.findOne({
+        user: user._id,
+        product: body.productId,
+        status: "pending",
+    });
+    if (item) {
+        item.quantity += body.quantity;
+        if (product.quantity < Number(item.quantity))
+            return next(new ErrorResponse(`Insufficient quantity left`, 404));
+        await item.save();
     }
-    const existingItem = cart.items.find(
-      (item) => item.product.toString() === productId
-    );
-    if (existingItem) {
-      existingItem.quantity += quantity;
-    } else {
-      cart.items.push({
-        product: productId,
-        quantity: quantity,
-      });
+    else {
+        item = await CartModel.create({
+            product: body.productId,
+            quantity: body.quantity,
+            user: user.id,
+        });
+        return {
+            success: true,
+            message: "product added to cart",
+            data: item,
+        };
     }
-    cart.total = cart.items.reduce((total, item) => {
-      return total + item.quantity * product.price;
-    }, 0);
-    await cart.save();
+});
+export const updateCartItem = asyncHandler(async (req, res, next) => {
+    const { cartId, quantity, type } = req.body;
+    const item = await CartModel.findOne({
+        _id: cartId,
+        user: req.user.id,
+        status: "pending",
+    });
+    if (!item) {
+        return next(new ErrorResponse("Item not in cart", 404));
+    }
+    const product = await ProductModel.findOne({ _id: item.product });
+    if (!product) {
+        return next(new ErrorResponse(`Unable to get product`, 404));
+    }
+    if (type === "decrease") {
+        if (quantity >= item.quantity) {
+            await deleteItemFormCart(req.user.id, item.product.toString(), next);
+            return next(new ErrorResponse(`item removed`, 200));
+        }
+        else {
+            item.quantity -= quantity;
+        }
+    }
+    if (type === "increase") {
+        if (item.quantity + quantity > product.quantity) {
+            return next(new ErrorResponse(`Please select a quantity less then or equal to ${product.quantity}`, 400));
+        }
+        item.quantity += quantity;
+    }
+    await item.save();
     return {
-      success: true,
-      message: "Item added to cart",
-      data: cart,
-    };
-  }
-);
-export const getCart = asyncHandler(
-  async (req: Request, res: Response, next: NextFunction) => {
-    const userId = req.user?._id;
-    if (!userId) {
-      return next(new ErrorResponse("User not authenticated", 401));
-    }
-    const cart = await CartModel.findOne({ user: userId }).populate(
-      "items.product"
-    );
-    if (!cart) {
-      return {
         success: true,
-        message: "Cart is empty",
-        data: { items: [], total: 0 },
-      };
-    }
-    return {
-      success: true,
-      message: "Cart retrieved successfully",
-      data: cart,
+        message: "cart item updated",
+        data: item,
     };
-  }
-);
-export const updateCartItem = asyncHandler(
-  async (req: Request, res: Response, next: NextFunction) => {
-    const { productId, quantity } = req.body;
-    const userId = req.user?._id;
-    if (!userId) {
-      return next(new ErrorResponse("User not authenticated", 401));
-    }
-    const cart = await CartModel.findOne({ user: userId });
+});
+export const getCart = asyncHandler(async (req, res, next) => {
+    const params = req.query;
+    const { page = 1, pageSize = 20, author, ...rest } = params;
+    const pagination = paginate({ page, pageSize });
+    const query = await search(rest);
+    query.user = req.user._id;
+    query.status = "pending";
+    const cart = await CartModel.find(query)
+        .populate([
+        {
+            path: "product",
+            populate: {
+                path: "category",
+                select: "id name",
+            },
+        },
+    ])
+        .skip(pagination.offset)
+        .limit(pagination.limit)
+        .sort({ createdAt: -1 })
+        .exec();
+    const count = await CartModel.countDocuments(query).exec();
+    return {
+        success: true,
+        pagination: {
+            ...(await pageCount({ count, page, pageSize })),
+            total: count,
+        },
+        data: cart,
+    };
+});
+export const getSingleCartItem = asyncHandler(async (req, res, next) => {
+    const { id } = req.params;
+    const cart = await CartModel.findOne({ _id: id }).populate([
+        {
+            path: "product",
+            populate: {
+                path: "category",
+                select: "id name",
+            },
+        },
+    ]);
     if (!cart) {
-      return next(new ErrorResponse("Cart not found", 404));
+        return next(new ErrorResponse("Item not found", 404));
     }
-    const item = cart.items.find(
-      (item) => item.product.toString() === productId
-    );
-    if (!item) {
-      return next(new ErrorResponse("Item not found in cart", 404));
-    }
-    item.quantity = quantity;
-    await cart.save();
+    return cart;
+});
+const deleteItemFormCart = async (user, productId, next) => {
+    await CartModel.deleteOne({
+        user: user,
+        product: productId,
+    });
+    return true;
+};
+export const removeItem = asyncHandler(async (req, res, next) => {
+    await deleteItemFormCart(req.user.id, req.params.productId, next);
     return {
-      success: true,
-      message: "Cart item updated",
-      data: cart,
+        success: true,
+        message: "item removed fromm cart",
     };
-  }
-);
-export const getSingleCartItem = asyncHandler(
-  async (req: Request, res: Response, next: NextFunction) => {
-    const { productId } = req.params;
-    const userId = req.user?._id;
-    if (!userId) {
-      return next(new ErrorResponse("User not authenticated", 401));
-    }
-    const cart = await CartModel.findOne({ user: userId });
-    if (!cart) {
-      return next(new ErrorResponse("Cart not found", 404));
-    }
-    const item = cart.items.find(
-      (item) => item.product.toString() === productId
-    );
-    if (!item) {
-      return next(new ErrorResponse("Item not found in cart", 404));
-    }
-    return {
-      success: true,
-      message: "Cart item retrieved",
-      data: item,
-    };
-  }
-);
-export const removeItem = asyncHandler(
-  async (req: Request, res: Response, next: NextFunction) => {
-    const { productId } = req.params;
-    const userId = req.user?._id;
-    if (!userId) {
-      return next(new ErrorResponse("User not authenticated", 401));
-    }
-    const cart = await CartModel.findOne({ user: userId });
-    if (!cart) {
-      return next(new ErrorResponse("Cart not found", 404));
-    }
-    cart.items = cart.items.filter(
-      (item) => item.product.toString() !== productId
-    );
-    cart.total = cart.items.reduce((total, item) => {
-      return total + item.quantity * item.product.price;
-    }, 0);
-    await cart.save();
-    return {
-      success: true,
-      message: "Item removed from cart",
-      data: cart,
-    };
-  }
-);
-//# sourceMappingURL=cart.service .map
+});
+//# sourceMappingURL=cart.service.js.map

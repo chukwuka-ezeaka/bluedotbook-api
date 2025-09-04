@@ -2,10 +2,10 @@ import express from "express";
 import * as cart from "../controllers/cart.controller";
 const cartRouter = express.Router();
 cartRouter
-  .get("/", cart.getCartController)
-  .get("/:productId", cart.getSingleCartItemController)
-  .post("/", cart.addToCartController)
-  .put("/", cart.updateCartItemController)
-  .delete("/:productId", cart.removeCartItemController);
+    .post("/", cart.addToCartController)
+    .get("/", cart.getCartController)
+    .get("/:id", cart.getSingleCartItemController)
+    .put("/:id", cart.updateCartItemController)
+    .delete("/:id", cart.removeCartItemController);
 export default cartRouter;
-//# sourceMappingURL=cart.routes .map
+//# sourceMappingURL=cart.routes.js.map

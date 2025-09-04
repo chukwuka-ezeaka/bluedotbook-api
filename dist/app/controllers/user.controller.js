@@ -1,15 +1,23 @@
 import { getUser, getUsers, updateUser } from "../services/user.service";
 import asyncHandler from "../shared/middleware/async";
-export const getUsersController = asyncHandler(async (req: Request, res: Response, next: NextFunction) => {
-  const users = await getUsers(req: Request, res: Response, next: NextFunction);
-  return res.status(200).send(users);
+import ErrorResponse from "../shared/utils/errorResponse";
+import { updateUserValidator } from "../shared/validators/user.validators";
+export const getUsersController = asyncHandler(async (req, res, next) => {
+    const users = await getUsers(req, res, next);
+    return res.status(200).send(users);
 });
-export const getUserController = asyncHandler(async (req: Request, res: Response, next: NextFunction) => {
-  const user = await getUser(req: Request, res: Response, next: NextFunction);
-  return res.status(200).send(user);
+export const getUserController = asyncHandler(async (req, res, next) => {
+    const user = await getUser(req, res, next);
+    return res.status(200).send(user);
 });
-export const updateUserController = asyncHandler(async (req: Request, res: Response, next: NextFunction) => {
-  const user = await updateUser(req: Request, res: Response, next: NextFunction);
-  return res.status(200).send(user);
+export const updateUserController = asyncHandler(async (req, res, next) => {
+    const { error } = await updateUserValidator.validateAsync(req.body);
+    if (error) {
+        return next(new ErrorResponse(error.message, 400));
+    }
+    else {
+        const user = await updateUser(req, res, next);
+        return res.status(200).json(user);
+    }
 });
-//# sourceMappingURL=user.controller .map
+//# sourceMappingURL=user.controller.js.map

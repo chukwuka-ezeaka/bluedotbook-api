@@ -1,10 +1,1 @@
-{
-  "version": 3,
-  "file": "constants ",
-  "sourceRoot": "",
-  "sources": [
-    "../../../../app/shared/utils/constants.ts"
-  ],
-  "names": [],
-  "mappings": "AAAA,MAAM,CAAC,MAAM,OAAO,GAAG;IACrB,OAAO,EAAE,IAAI,GAAG,EAAE;IAClB,OAAO,EAAE;QACP,cAAc,EAAE,kBAAkB;KACnC;CACF,CAAC;AAEF,MAAM,CAAC,MAAM,cAAc,GACzB,uFAAuF,CAAC"
-}
+{"version":3,"file":"constants.js","sourceRoot":"","sources":["../../../../app/shared/utils/constants.ts"],"names":[],"mappings":"AAAA,MAAM,CAAC,MAAM,OAAO,GAAG;IACrB,OAAO,EAAE,IAAI,GAAG,EAAE;IAClB,OAAO,EAAE;QACP,cAAc,EAAE,kBAAkB;KACnC;CACF,CAAC;AAEF,MAAM,CAAC,MAAM,cAAc,GACzB,uFAAuF,CAAC"}

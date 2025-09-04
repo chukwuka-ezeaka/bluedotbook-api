@@ -1,30 +1,27 @@
 import { UserModel } from "../models/user.model";
 import ErrorResponse from "../utils/errorResponse";
 import asyncHandler from "./async";
-export const checkDuplicateEmail = asyncHandler(
-  async (req: Request, res: Response, next: NextFunction) => {
-    const { email } = req.body;
-    if (email) {
-      const existingUser = await UserModel.findOne({ email });
-      if (existingUser) {
-        return next(new ErrorResponse("Email already exists", 400));
-      }
+const checkDuplicateEmail = asyncHandler(async (req, res, next) => {
+    const user = await UserModel.findOne({
+        $or: [{ email: req.body.email }, { email: req.body.email.toLowerCase() }],
+    });
+    if (user) {
+        return next(new ErrorResponse("Email already in use", 400));
     }
     next();
-  }
-);
-export const checkDuplicateUsername = asyncHandler(
-  async (req: Request, res: Response, next: NextFunction) => {
-    const { username } = req.body;
-    if (username) {
-      const existingUser = await UserModel.findOne({
-        username: username.toLowerCase(),
-      });
-      if (existingUser) {
-        return next(new ErrorResponse("Username already exists", 400));
-      }
+});
+const checkDuplicateUsername = asyncHandler(async (req, res, next) => {
+    const user = await UserModel.findOne({
+        username: req.body.username.toLowerCase(),
+    });
+    if (user) {
+        return next(new ErrorResponse("Username already in use", 400));
     }
     next();
-  }
-);
-//# sourceMappingURL=verify .map
+});
+const verify = {
+    checkDuplicateEmail,
+    checkDuplicateUsername,
+};
+export default verify;
+//# sourceMappingURL=verify.js.map
